@@ -171,7 +171,7 @@ public class MySQLConnection {
 		return favoriteItems;
 	}
 
-	// read from keywords table
+	// get all 3 keywords of an item
 	public Set<String> getKeywords(String itemId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");

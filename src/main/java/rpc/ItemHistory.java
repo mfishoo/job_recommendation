@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,6 +38,14 @@ public class ItemHistory extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("inside /histry GET");
+		
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			response.setStatus(403);
+			System.out.println("Invalid session in history get");
+			return;
+		}
+		
 		String userId = request.getParameter("user_id");
 
 		// request db
@@ -61,6 +70,14 @@ public class ItemHistory extends HttpServlet {
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("inside /search delete");
+		
+		HttpSession session = req.getSession(false);
+		if(session == null) {
+			resp.setStatus(403);
+			System.out.println("Invalid session in histrory delete");
+			return;
+		}
+		
 
 		// 1. read request and get JSON
 		// question: why just String s = req.getParameter("user_id");JSONObject obj =
@@ -90,6 +107,14 @@ public class ItemHistory extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("inside /history POST");
+		
+		
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			response.setStatus(403);
+			System.out.println("Invalid session in histrory post");
+			return;
+		}
 
 		// 1. convert request body to JSON
 		JSONObject input = RpcHelper.readJSONObject(request);
