@@ -30,4 +30,16 @@ public class Item1 {
 		obj.put("url", url);
 		return obj;
 	}
+
+//	lombok builder example
+
+//	Widget testWidget = Widget.builder()
+//			  .name("foo")
+//			  .id(1)
+//			  .build();
+//			 
+//	Widget.WidgetBuilder widgetBuilder = testWidget.toBuilder();
+//			 
+//	Widget newWidget = widgetBuilder.id(2).build();
+
 }
