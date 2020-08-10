@@ -14,6 +14,7 @@ Deploy on [AWS EC2](http://18.188.168.13/job/).
 - [Apache Tomcat](http://tomcat.apache.org/) - Java webapp framework
 - Bootstrap - CSS style
 - MySQL
+- [Project Lombok](https://projectlombok.org/) - Java library
 
 ## Servelts
 - /search
