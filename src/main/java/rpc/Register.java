@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -31,6 +32,7 @@ public class Register extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("inside register");
 		JSONObject input = RpcHelper.readJSONObject(request);
 		String userId = input.getString("user_id");
 		String password = input.getString("password");
@@ -40,7 +42,14 @@ public class Register extends HttpServlet {
 		MySQLConnection connection = new MySQLConnection();
 		JSONObject obj = new JSONObject();
 		if (connection.addUser(userId, password, firstname, lastname)) {
-			obj.put("status", "OK");
+			
+			// if success login directly
+			HttpSession session = request.getSession();
+			session.setAttribute("user_id", userId);
+			session.setMaxInactiveInterval(3600);
+			obj.put("status", "OK").put("user_id", userId).put("name", connection.getFullname(userId));
+			System.out.println("register success from db in backend");
+
 		} else {
 			obj.put("status", "User Already Exists");
 		}

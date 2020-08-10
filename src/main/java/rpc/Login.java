@@ -50,9 +50,12 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("inside login");
 		JSONObject input = RpcHelper.readJSONObject(request);
 		String userId = input.getString("user_id");
 		String password = input.getString("password");
+		System.out.println("input received: userId: " + userId + "pw: " + password);
+		
 		
 		MySQLConnection connection = new MySQLConnection();
 		JSONObject obj = new JSONObject();
@@ -61,9 +64,11 @@ public class Login extends HttpServlet {
 			session.setAttribute("user_id", userId);
 			session.setMaxInactiveInterval(3600);
 			obj.put("status", "OK").put("user_id", userId).put("name", connection.getFullname(userId));
+			System.out.println("login success from db in backend");
 		}else {
 			obj.put("status", "User doesn't exist");
 			response.setStatus(401);
+			System.out.println("login failed from db in backend");
 		}
 		connection.close();
 		RpcHelper.writeJsonObject(response, obj);

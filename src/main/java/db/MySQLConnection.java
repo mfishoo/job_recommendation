@@ -258,8 +258,27 @@ public class MySQLConnection {
 		return false;
 	}
 
+	// delete user from db
+		public void deleteUser(String userId) {
+			System.out.println("inside delete user");
+			if (conn == null) {
+				System.err.println("DB connection failed");
+				return;
+			}
+
+			String sql = "DELETE FROM users WHERE user_id = ?";
+			try {
+				PreparedStatement statement = conn.prepareStatement(sql);
+				statement.setString(1, userId);
+				statement.executeUpdate();
+				System.out.println("delete user done");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	public static void main(String[] args) {
 		MySQLConnection test = new MySQLConnection();
+		test.deleteUser("3333");
 		
 	}
 }
