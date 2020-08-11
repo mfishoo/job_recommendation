@@ -72,8 +72,7 @@
     hideElement(loginForm);
     hideElement(registerForm);
     
-    loadNearbyItems();
-//    initGeoLocation();
+    initGeoLocation();
   }
 
   function onSessionInvalid() {
